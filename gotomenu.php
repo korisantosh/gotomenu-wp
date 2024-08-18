@@ -108,6 +108,23 @@ function get_menu_title($menu_title)
     return esc_html($menu_text);
 }
 
+/**
+ * Get the menu icon
+ *
+ * @param string $menu_icon The menu icon.
+ * @return string The menu icon .
+ */
+function get_menu_icon($menu_icon)
+{
+    // Check if the string contains an opening HTML tag
+    if ($menu_icon === 'none') {
+       $menu_text = 'dashicons-admin-generic';
+    } else {
+        $menu_text = $menu_icon;
+    }
+    return esc_attr($menu_text);
+}
+
 // Function to get available menus
 function gotomenu_get_admin_menus() {
     global $menu;
@@ -116,7 +133,7 @@ function gotomenu_get_admin_menus() {
     foreach ($menu as $item) {
         if(isset($item[4]) && $item[4] !== 'wp-menu-separator') {
             $menu_title = get_menu_title($item[0]);
-            $menu_icon = (isset($item[6])) ? $item[6] : 'dashicons-admin-generic';
+            $menu_icon =(isset($item[6])) ?  get_menu_icon($item[6]) : 'dashicons-admin-generic';
 
             $admin_menu_items[] = array(
                 'title' => $menu_title,  // The menu title

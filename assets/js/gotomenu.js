@@ -14,16 +14,14 @@
     }
 
     function isUrl(str) {
-      return str.startsWith("http://") || str.startsWith("https://");
+      return str.startsWith("http://") || str.startsWith("https://") || str.startsWith("data:");
     }
 
     $(document)
       .off("keydown")
       .on("keydown", function (e) {
-      console.log('keydown');
       var isF2 = e.key === "F2" || e.which === 113 || e.keyCode === 113;
       var isEsc = e.key === "Escape" || e.which === 27 || e.keyCode === 27;
-      console.log('isF2==', isF2);
       if (isF2) {
         // F2 key
         e.preventDefault();
@@ -69,7 +67,6 @@
 
           if (suggestions.length > 0) {
             $.each(suggestions, function (index, menu) {
-              console.log(menu.icon);
               var menu_icon = (menu.icon && menu.icon  !== undefined) ? (isUrl(menu.icon) ? '<img class="icon" src="' + menu.icon + '" />'
                 : '<span class="icon dashicons ' + menu.icon + '"></span>') : '';
 
@@ -143,7 +140,6 @@
     });
 
     $(document).on("click", "#gotomenu-close", function (e) {
-      console.log('gotomenuClose jquery on click');
         e.preventDefault();
         $("#gotomenu-modal").hide();
         $("body").removeClass("gotomenu-open");
