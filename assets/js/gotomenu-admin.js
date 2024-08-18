@@ -1,3 +1,4 @@
+console.log("gotomenu-admin.js loaded");
 jQuery(document).ready(function($) {
     $(document).keydown(function(e) {
         var isF2 = e.key === 'F2' || e.which === 113 || e.keyCode === 113;
@@ -23,7 +24,7 @@ jQuery(document).ready(function($) {
                 $('#gotomenu-autocomplete').on('input', function() {
                     var isActive = $(this).val().trim().length > 0 ? $(this).addClass('is-active') : $(this).removeClass('is-active');
                     var query = $(this).val().toLowerCase();
-                    var suggestions = gotomenuData.menus.filter(function(menu) {
+                    var suggestions = gotomenuAdminData.menus.filter(function(menu) {
                         return menu.title.toLowerCase().includes(query);
                     }).slice(0, 5); // Limit to top 5 results
 
