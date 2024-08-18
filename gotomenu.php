@@ -135,8 +135,8 @@ function gotomenu_get_admin_menus()
         'icon'   => 'dashicons-admin-site'
     );
     array_unshift($admin_menu_items, $homeItem);
-    error_log("Admin menu items");
-    error_log(print_r($admin_menu_items, true));
+    // error_log("Admin menu items");
+    // error_log(print_r($admin_menu_items, true));
     return $admin_menu_items;
 }
 

@@ -1,6 +1,10 @@
 body.gotomenu-open {
     overflow: hidden;
 }
+body.gotomenu-open ul.gotomenu-suggestions {
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+    padding: 4px;
+}
 
 #gotomenu-modal {
     position: fixed;
@@ -32,7 +36,7 @@ body.gotomenu-open {
 }
 
 .gotomenu-content h2 {
-    margin: 0;
+    margin: 0 0 15px;
     padding: 0;
     font-size: 22px;
     font-weight: 400;
@@ -48,6 +52,10 @@ body.gotomenu-open {
 
 .gotomenu-content input[type="text"]:focus {
     border-radius: 5px 5px 0 0;
+}
+.gotomenu-content input.is-active {
+    border-radius: 5px 5px 0 0;
+    border-bottom: 0 none;
 }
 
 .gotomenu-inner {
@@ -79,18 +87,30 @@ ul.gotomenu-suggestions {
     margin: 0;
     border: #ccc solid 1px;
     border-top: 0 none;
-    box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
     border-radius: 0 0 5px 5px;
 }
 
 ul.gotomenu-suggestions li {
     padding: 5px 10px;
     border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+}
+
+ul.gotomenu-suggestions li .icon {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #333;
+    width: 20px;
+    height: 20px;
 }
 
 ul.gotomenu-suggestions li:hover,
 ul.gotomenu-suggestions li.selected {
     background: #e4e5f9;
+}
+
+ul.gotomenu-suggestions li:last-child {
+    border-bottom: 0 none;
 }
 
 ul.gotomenu-suggestions li a {

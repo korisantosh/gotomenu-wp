@@ -36,7 +36,9 @@ jQuery(document).ready(function($) {
                     suggestionList.empty();
                     ;
                     $.each(suggestions, function(index, menu) {
-                        suggestionList.append('<li data-url="' + menu.url + '"><a tabindex="0" href="' + menu.url + '">' + menu.title + '</a></li>');
+                        console.log(menu.icon);
+                        var menu_icon = isUrl(menu.icon) ? '<img class="icon" src="' + menu.icon + '" />' : '<span class="icon dashicons ' + menu.icon + '"></span>';
+                        suggestionList.append('<li data-url="' + menu.url + '"><a tabindex="0" href="' + menu.url + '">' + menu_icon + '' + menu.title + '</a></li>');
                     });
 
                     // Handle suggestion click
@@ -137,6 +139,14 @@ jQuery(document).ready(function($) {
         function restoreFocus() {
             $('body').removeClass('focus-trap');
             $('body').removeAttr('aria-hidden');
+        }
+
+        function isUrl(str) {
+            const urlPattern = /^(http?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/;
+            console.log('inside isUrl===' + str);
+            console.log(str.startsWith('http://'));
+            console.log(str.startsWith('https://'));
+            return str.startsWith('http://') || str.startsWith('https://');
         }
     });
 });
