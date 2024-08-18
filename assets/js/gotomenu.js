@@ -41,24 +41,23 @@
             // Clear and populate suggestion list
             var suggestionList = $("#gotomenu-suggestions");
             suggestionList.empty();
-            $.each(suggestions, function (index, menu) {
-              suggestionList.append(
-                '<li data-url="' +
-                  menu.url +
-                  '"><a tabindex="0" href="' +
-                  menu.url +
-                  '">' +
-                  menu.title +
-                  "</a></li>"
-              );
-            });
-
-            // Handle suggestion click
-            $("#gotomenu-suggestions li")
-              .off("click")
-              .on("click", function () {
-                window.location.href = $(this).data("url");
+            if (suggestions.length > 0) {
+              $.each(suggestions, function (index, menu) {
+                suggestionList.append(
+                  '<li><a data-url="' +
+                    menu.url +
+                    '" tabindex="0" href="' +
+                    menu.url +
+                    '">' +
+                    menu.title +
+                    "</a></li>"
+                );
               });
+            } else {
+              suggestionList.append(
+                '<li class="no-results">No results found.</li>'
+              );
+            }
           });
 
           // Handle keyboard navigation in the suggestion list
@@ -89,23 +88,14 @@
                 // Enter key
                 e.preventDefault();
                 if (selectedIndex >= 0) {
-                  window.location.href = $(suggestionItems[selectedIndex]).data(
-                    "url"
-                  );
+                  window.location.href = $(suggestionItems[selectedIndex])
+                    .find("a")
+                    .data("url");
                 }
               }
             }
           });
         }
-        // Handle Go button click
-        $("#gotomenu-select")
-          .off("change")
-          .on("change", function () {
-            var url = $(this).val();
-            if (url) {
-              window.location.href = url;
-            }
-          });
         $("#gotomenu-close")
           .off("click")
           .on("click", function () {
@@ -169,12 +159,10 @@
 
       function saveFocus() {
         $("body").addClass("focus-trap");
-        $("body").attr("aria-hidden", "true");
       }
 
       function restoreFocus() {
         $("body").removeClass("focus-trap");
-        $("body").removeAttr("aria-hidden");
       }
     });
   });

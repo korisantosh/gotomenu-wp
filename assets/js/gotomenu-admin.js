@@ -41,136 +41,128 @@
             // Clear and populate suggestion list
             var suggestionList = $("#gotomenu-suggestions");
             suggestionList.empty();
-            $.each(suggestions, function (index, menu) {
-              console.log(menu.icon);
-              var menu_icon = isUrl(menu.icon)
-                ? '<img class="icon" src="' + menu.icon + '" />'
-                : '<span class="icon dashicons ' + menu.icon + '"></span>';
+
+            if (suggestions.length > 0) {
+              $.each(suggestions, function (index, menu) {
+                console.log(menu.icon);
+                var menu_icon = isUrl(menu.icon)
+                  ? '<img class="icon" src="' + menu.icon + '" />'
+                  : '<span class="icon dashicons ' + menu.icon + '"></span>';
+                suggestionList.append(
+                  '<li><a data-url="' +
+                    menu.url +
+                    '" tabindex="0" href="' +
+                    menu.url +
+                    '">' +
+                    menu_icon +
+                    "" +
+                    menu.title +
+                    "</a></li>"
+                );
+              });
+            } else {
               suggestionList.append(
-                '<li data-url="' +
-                  menu.url +
-                  '"><a tabindex="0" href="' +
-                  menu.url +
-                  '">' +
-                  menu_icon +
-                  "" +
-                  menu.title +
-                  "</a></li>"
+                '<li class="no-results">No results found.</li>'
               );
+            }
+
+            // Handle keyboard navigation in the suggestion list
+            $("#gotomenu-autocomplete").on("keydown", function (e) {
+              var suggestionItems = $("#gotomenu-suggestions li");
+              if (suggestionItems.length > 0) {
+                if (e.which === 40) {
+                  // Down arrow key
+                  e.preventDefault();
+                  if (selectedIndex < suggestionItems.length - 1) {
+                    selectedIndex++;
+                    suggestionItems.removeClass("selected");
+                    $(suggestionItems[selectedIndex])
+                      .addClass("selected")
+                      .focus();
+                  }
+                } else if (e.which === 38) {
+                  // Up arrow key
+                  e.preventDefault();
+                  if (selectedIndex > 0) {
+                    selectedIndex--;
+                    suggestionItems.removeClass("selected");
+                    $(suggestionItems[selectedIndex])
+                      .addClass("selected")
+                      .focus();
+                  }
+                } else if (e.which === 13) {
+                  // Enter key
+                  e.preventDefault();
+                  if (selectedIndex >= 0) {
+                    window.location.href = $(suggestionItems[selectedIndex])
+                      .find("a")
+                      .data("url");
+                  }
+                }
+              }
+            });
+          });
+
+          $("#gotomenu-close")
+            .off("click")
+            .on("click", function () {
+              $("#gotomenu-modal").hide();
+              $("body").removeClass("gotomenu-open");
+              restoreFocus();
             });
 
-            // Handle suggestion click
-            $("#gotomenu-suggestions li")
-              .off("click")
-              .on("click", function () {
-                window.location.href = $(this).data("url");
-              });
-          });
-
-          // Handle keyboard navigation in the suggestion list
-          $("#gotomenu-autocomplete").on("keydown", function (e) {
-            var suggestionItems = $("#gotomenu-suggestions li");
-            if (suggestionItems.length > 0) {
-              if (e.which === 40) {
-                // Down arrow key
-                e.preventDefault();
-                if (selectedIndex < suggestionItems.length - 1) {
-                  selectedIndex++;
-                  suggestionItems.removeClass("selected");
-                  $(suggestionItems[selectedIndex])
-                    .addClass("selected")
-                    .focus();
-                }
-              } else if (e.which === 38) {
-                // Up arrow key
-                e.preventDefault();
-                if (selectedIndex > 0) {
-                  selectedIndex--;
-                  suggestionItems.removeClass("selected");
-                  $(suggestionItems[selectedIndex])
-                    .addClass("selected")
-                    .focus();
-                }
-              } else if (e.which === 13) {
-                // Enter key
-                e.preventDefault();
-                if (selectedIndex >= 0) {
-                  window.location.href = $(suggestionItems[selectedIndex]).data(
-                    "url"
-                  );
-                }
-              }
-            }
-          });
-        }
-        // Handle Go button click
-        $("#gotomenu-select")
-          .off("change")
-          .on("change", function () {
-            var url = $(this).val();
-            if (url) {
-              window.location.href = url;
-            }
-          });
-        $("#gotomenu-close")
-          .off("click")
-          .on("click", function () {
-            $("#gotomenu-modal").hide();
-            $("body").removeClass("gotomenu-open");
-            restoreFocus();
-          });
-
-        $(".gotomenu-overlay")
-          .off("click")
-          .on("click", function () {
-            $("#gotomenu-modal").hide();
-            $("body").removeClass("gotomenu-open");
-            restoreFocus();
-          });
-
-        $(document)
-          .off("keydown")
-          .on("keydown", function (e) {
-            if (isEsc) {
+          $(".gotomenu-overlay")
+            .off("click")
+            .on("click", function () {
               $("#gotomenu-modal").hide();
+              $("body").removeClass("gotomenu-open");
               restoreFocus();
+            });
+
+          $(document)
+            .off("keydown")
+            .on("keydown", function (e) {
+              if (isEsc) {
+                $("#gotomenu-modal").hide();
+                restoreFocus();
+              }
+            });
+
+          // Focus trap logic
+          var firstFocusableElement = $("#gotomenu-autocomplete");
+          var focusableElements = $("#gotomenu-modal")
+            .find("input, button, li")
+            .filter(":visible");
+          var lastFocusableElement =
+            focusableElements[focusableElements.length - 1];
+
+          $("#gotomenu-modal").on("keydown", function (e) {
+            var isTab = e.key === "Tab" || e.which === 9 || e.keyCode === 9;
+
+            if (isTab) {
+              if (e.shiftKey) {
+                // Shift + Tab
+                if (document.activeElement === firstFocusableElement[0]) {
+                  e.preventDefault();
+                  lastFocusableElement.focus();
+                }
+              } else {
+                // Tab
+                if (document.activeElement === lastFocusableElement) {
+                  e.preventDefault();
+                  firstFocusableElement.focus();
+                }
+              }
             }
           });
 
-        // Focus trap logic
-        var firstFocusableElement = $("#gotomenu-autocomplete");
-        var focusableElements = $("#gotomenu-modal")
-          .find("input, button, li")
-          .filter(":visible");
-        var lastFocusableElement =
-          focusableElements[focusableElements.length - 1];
-
-        $("#gotomenu-modal").on("keydown", function (e) {
-          var isTab = e.key === "Tab" || e.which === 9 || e.keyCode === 9;
-
-          if (isTab) {
-            if (e.shiftKey) {
-              // Shift + Tab
-              if (document.activeElement === firstFocusableElement[0]) {
-                e.preventDefault();
-                lastFocusableElement.focus();
-              }
-            } else {
-              // Tab
-              if (document.activeElement === lastFocusableElement) {
-                e.preventDefault();
-                firstFocusableElement.focus();
-              }
-            }
-          }
-        });
-
-        // Show modal
-        $("#gotomenu-modal").show();
-        $("#gotomenu-autocomplete").focus();
-        $("body").addClass("gotomenu-open");
-        // Save focus and restrict tabbing to the modal
-        saveFocus();
+          // Show modal
+          $("#gotomenu-modal").show();
+          $("#gotomenu-autocomplete").focus();
+          $("body").addClass("gotomenu-open");
+          // Save focus and restrict tabbing to the modal
+          saveFocus();
+        }
       }
 
       function saveFocus() {
