@@ -1,12 +1,14 @@
 <?php
-/*
-Plugin Name: GoToMenu
-Description: Opens a modal with a dropdown list of available menus when F2 is pressed on the frontend.
-Version: 1.0
-Author: Your Name
-License: GPLv2 or later
-Text Domain: gotomenu
-*/
+/**
+ * Plugin Name: GoToMenu
+ * Plugin URI: https://github.com/korisantosh/gotomenu-wp
+ * Description: Opens a modal with a dropdown list of available menus when F2 is pressed on the frontend.
+ * Version: 1.0
+ * Author: Santosh Kori
+ * Author URI: http://santoshkori.com
+ * License: GPLv2 or later
+ * Text Domain: gotomenu
+ */
 
 // Prevent direct access
 if (!defined('ABSPATH')) {
