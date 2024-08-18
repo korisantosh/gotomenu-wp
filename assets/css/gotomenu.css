@@ -1,6 +1,7 @@
 body.gotomenu-open {
     overflow: hidden;
 }
+
 body.gotomenu-open ul.gotomenu-suggestions {
     box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
     padding: 4px;
@@ -53,6 +54,7 @@ body.gotomenu-open ul.gotomenu-suggestions {
 .gotomenu-content input[type="text"]:focus {
     border-radius: 5px 5px 0 0;
 }
+
 .gotomenu-content input.is-active {
     border-radius: 5px 5px 0 0;
     border-bottom: 0 none;
