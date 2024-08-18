@@ -35,17 +35,19 @@ add_action('wp_enqueue_scripts', 'gotomenu_enqueue_scripts');
 
 // Enqueue scripts and styles for admin
 function gotomenu_admin_enqueue_scripts() {
-    // Get file modification time for cache busting
-    $css_version = filemtime(plugin_dir_path(__FILE__) . 'assets/css/gotomenu.css');
-    $js_version = filemtime(plugin_dir_path(__FILE__) . 'assets/js/gotomenu-admin.js');
+    if (get_option('gotomenu_enable_backend') === '1') {
+        // Get file modification time for cache busting
+        $css_version = filemtime(plugin_dir_path(__FILE__) . 'assets/css/gotomenu.css');
+        $js_version = filemtime(plugin_dir_path(__FILE__) . 'assets/js/gotomenu.js');
 
-    wp_enqueue_style('gotomenu-admin-style', plugin_dir_url(__FILE__) . 'assets/css/gotomenu.css', array(), $css_version);
-    wp_enqueue_script('gotomenu-admin-script', plugin_dir_url(__FILE__) . 'assets/js/gotomenu-admin.js', array('jquery'), $js_version, true);
+        wp_enqueue_style('gotomenu-admin-style', plugin_dir_url(__FILE__) . 'assets/css/gotomenu.css', array(), $css_version);
+        wp_enqueue_script('gotomenu-admin-script', plugin_dir_url(__FILE__) . 'assets/js/gotomenu.js', array('jquery'), $js_version, true);
 
-    // Localize script to pass PHP data to JavaScript securely
-    wp_localize_script('gotomenu-admin-script', 'gotomenuAdminData', array(
-        'menus' => gotomenu_get_admin_menus()
-    ));
+        // Localize script to pass PHP data to JavaScript securely
+        wp_localize_script('gotomenu-admin-script', 'gotomenuData', array(
+            'menus' => gotomenu_get_admin_menus()
+        ));
+    }
 }
 add_action('admin_enqueue_scripts', 'gotomenu_admin_enqueue_scripts');
 

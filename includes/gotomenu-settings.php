@@ -56,7 +56,7 @@ function gotomenu_options_page() {
                 </tr>
             </table>
             <div class="notice inline notice-info notice-alt">
-                <p><span class="dashicons dashicons-info"></span> <?php esc_html_e('Press F2 to use GoToMenu and instantly redirect to your selected page.', 'gotomenu'); ?></p>
+                <p><span class="dashicons dashicons-info"></span> <?php esc_html_e('Press F2 to use GoToMenu and search and select menu from lists to redirect.', 'gotomenu'); ?></p>
             </div>
             <?php submit_button(); ?>
         </form>

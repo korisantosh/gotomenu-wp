@@ -2,9 +2,10 @@ body.gotomenu-open {
     overflow: hidden;
 }
 
-body.gotomenu-open ul.gotomenu-suggestions {
+ul.gotomenu-suggestions.is-open {
     box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
     padding: 4px;
+    display: block;
 }
 
 #gotomenu-modal {
@@ -51,9 +52,6 @@ body.gotomenu-open ul.gotomenu-suggestions {
     font-size: 16px;
 }
 
-.gotomenu-content input[type="text"]:focus {
-    border-radius: 5px 5px 0 0;
-}
 
 .gotomenu-content input.is-active {
     border-radius: 5px 5px 0 0;
@@ -62,6 +60,7 @@ body.gotomenu-open ul.gotomenu-suggestions {
 
 .gotomenu-inner {
     position: relative;
+    min-width: 280px;
 }
 
 #gotomenu-select {
@@ -90,6 +89,7 @@ ul.gotomenu-suggestions {
     border: #ccc solid 1px;
     border-top: 0 none;
     border-radius: 0 0 5px 5px;
+    display: none;
 }
 
 ul.gotomenu-suggestions li {
@@ -99,8 +99,7 @@ ul.gotomenu-suggestions li {
 }
 
 ul.gotomenu-suggestions li .icon {
-    margin-right: 10px;
-    font-size: 16px;
+    margin-right: 5px;
     color: #333;
     width: 20px;
     height: 20px;
@@ -118,4 +117,6 @@ ul.gotomenu-suggestions li:last-child {
 ul.gotomenu-suggestions li a {
     text-decoration: none;
     color: #333;
+    display: flex;
+    align-items: flex-start;
 }
