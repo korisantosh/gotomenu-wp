@@ -1,6 +1,6 @@
-=== GoToMenu ===
+=== GoToMenu - Menu Navigator ===
 Contributors: santoshkori26
-Donate link: https://santoshkori.com/gotomenu-wordpress
+Donate link: https://www.santoshkori.com/gotomenu-wordpress/
 Tags: menu, navigation, shortcut, keyboard, accessibility
 Requires at least: 5.0
 Tested up to: 6.6.1
@@ -12,11 +12,12 @@ A simple and accessible WordPress plugin that allows users to quickly navigate t
 
 == Description ==
 
-**GoToMenu** is a lightweight and accessible WordPress plugin that enhances user navigation by allowing them to open a modal with a dropdown list of available menus by pressing the F2 key. This plugin is especially useful for users who prefer keyboard navigation and want to quickly access different sections of your website.
+**GoToMenu - Menu Navigator** GoToMenu - Menu Navigator is a WordPress plugin that boosts efficiency by offering rapid access to any registered menu. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow by skipping manual menu scrolling.
 
 ### Key Features:
 - Adds a settings page under "GoToMenu" in the WordPress admin area.
 - Includes a toggle field called "Enable for Frontend" to enable or disable the plugin's functionality on the frontend.
+- Includes a toggle field called "Enable for backend" to enable or disable the plugin's functionality on the backend.
 - When enabled, users (including guest users) can press the F2 key to open a modal displaying a list of available menus.
 - Users can select a menu from the dropdown list and navigate directly to the selected menu's page.
 - Fully accessible and keyboard-friendly, with support for navigating the modal using keyboard keys.

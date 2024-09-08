@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: GoToMenu
- * Plugin URI: https://github.com/korisantosh/gotomenu-wp
- * Description: Opens a modal with a dropdown list of available menus when F2 is pressed on the frontend.
- * Version: 1.0
+ * Plugin Name: GoToMenu - Menu Navigator
+ * Plugin URI: https://www.santoshkori.com/gotomenu-wordpress/
+ * Description: GoToMenu - Menu Navigator is tool that boosts efficiency by offering rapid access to any registered menu. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow.
+ * Version: 1.0.0
  * Author: Santosh Kori
  * Author URI: http://santoshkori.com
  * License: GPLv2 or later
- * Text Domain: gotomenu
+ * Text Domain: gotomenu-skori
  */
 
 // Prevent direct access
@@ -19,7 +19,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/gotomenu-settings.php';
 
 // Enqueue scripts and styles
 function gotomenu_enqueue_scripts() {
-    if (get_option('gotomenu_enable_frontend') === '1') {
+    if (!is_admin() && get_option('gotomenu_enable_frontend') === '1') {
         // Get file modification time for cache busting
         $css_version = filemtime(plugin_dir_path(__FILE__) . 'assets/css/gotomenu.css');
         $js_version = filemtime(plugin_dir_path(__FILE__) . 'assets/js/gotomenu.js');
@@ -37,7 +37,7 @@ add_action('wp_enqueue_scripts', 'gotomenu_enqueue_scripts');
 
 // Enqueue scripts and styles for admin
 function gotomenu_admin_enqueue_scripts() {
-    if (get_option('gotomenu_enable_backend') === '1') {
+    if (is_admin() && get_option('gotomenu_enable_backend') === '1') {
         // Get file modification time for cache busting
         $css_version = filemtime(plugin_dir_path(__FILE__) . 'assets/css/gotomenu.css');
         $js_version = filemtime(plugin_dir_path(__FILE__) . 'assets/js/gotomenu.js');
@@ -79,7 +79,7 @@ function gotomenu_get_menus() {
     });
 
     $homeItem = array(
-        'title' => __('Home', 'gotomenu'),
+        'title' => __('Home', 'gotomenu-skori'),
         'url'  => esc_url(get_bloginfo('url'))
     );
 
@@ -118,11 +118,28 @@ function get_menu_icon($menu_icon)
 {
     // Check if the string contains an opening HTML tag
     if ($menu_icon === 'none') {
-       $menu_text = 'dashicons-admin-generic';
+        $menu_text = 'dashicons-admin-generic';
     } else {
         $menu_text = $menu_icon;
     }
     return esc_attr($menu_text);
+}
+
+/**
+ * Get the menu url
+ *
+ * @param string $menu_url The menu url.
+ * @return string The menu url .
+ */
+function get_menu_url($menu)
+{
+    // Check if the string contains an opening HTML tag
+    if (strpos($menu, '.php')) {
+        $menu_url = admin_url($menu);
+    } else {
+        $menu_url = admin_url( 'admin.php?page=' . $menu );
+    }
+    return esc_url($menu_url);
 }
 
 // Function to get available menus
@@ -137,7 +154,7 @@ function gotomenu_get_admin_menus() {
 
             $admin_menu_items[] = array(
                 'title' => $menu_title,  // The menu title
-                'url'   => esc_url(admin_url($item[2])), // The URL to the admin page
+                'url'   => get_menu_url($item[2]), // The URL to the admin page
                 'icon'   => $menu_icon // The menu icon
             );
         }
@@ -148,7 +165,7 @@ function gotomenu_get_admin_menus() {
     });
 
     $homeItem = array(
-        'title' => __('Visit Site', 'gotomenu'),
+        'title' => __('Visit Site', 'gotomenu-skori'),
         'url'  => esc_url(get_bloginfo('url')),
         'icon'   => 'dashicons-admin-site'
     );
@@ -159,7 +176,7 @@ function gotomenu_get_admin_menus() {
 
 // Add settings link on plugin page
 function gotomenu_add_plugin_link($links) {
-    $settings_link = '<a href="' . admin_url('options-general.php?page=gotomenu') . '">' . __('Settings', 'gotomenu') . '</a>';
+    $settings_link = '<a href="' . admin_url('options-general.php?page=gotomenu') . '">' . __('Settings', 'gotomenu-skori') . '</a>';
     array_unshift($links, $settings_link);
     return $links;
 }
