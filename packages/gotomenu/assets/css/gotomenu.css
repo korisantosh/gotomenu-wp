@@ -1,0 +1,122 @@
+body.gotomenu-open {
+    overflow: hidden;
+}
+
+ul.gotomenu-suggestions.is-open {
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
+    padding: 4px;
+    display: block;
+}
+
+#gotomenu-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.gotomenu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gotomenu-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.gotomenu-content h2 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.gotomenu-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+.gotomenu-content input.is-active {
+    border-radius: 5px 5px 0 0;
+    border-bottom: 0 none;
+}
+
+.gotomenu-inner {
+    position: relative;
+    min-width: 280px;
+}
+
+#gotomenu-select {
+    width: 100%;
+}
+
+.gotomenu-close {
+    position: absolute;
+    top: -14px;
+    right: -2px;
+    color: var(--wp--preset--color--vivid-red, #dc3232);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    line-height: 22px;
+}
+
+ul.gotomenu-suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: #ccc solid 1px;
+    border-top: 0 none;
+    border-radius: 0 0 5px 5px;
+    display: none;
+}
+
+ul.gotomenu-suggestions li {
+    padding: 5px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+}
+
+ul.gotomenu-suggestions li .icon {
+    margin-right: 5px;
+    color: #333;
+    width: 20px;
+    height: 20px;
+}
+
+ul.gotomenu-suggestions li:hover,
+ul.gotomenu-suggestions li.selected {
+    background: #e4e5f9;
+}
+
+ul.gotomenu-suggestions li:last-child {
+    border-bottom: 0 none;
+}
+
+ul.gotomenu-suggestions li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: flex-start;
+}
