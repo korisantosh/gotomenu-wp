@@ -1,4 +1,4 @@
-=== GoToMenu - Menu Navigator ===
+=== GoToMenu - Quick Go to Menu Navigator ===
 Contributors: santoshkori26
 Donate link: https://www.santoshkori.com/gotomenu-wordpress/
 Tags: menu, navigation, shortcut, keyboard, accessibility
@@ -12,7 +12,7 @@ A simple and accessible WordPress plugin that allows users to quickly navigate t
 
 == Description ==
 
-**GoToMenu - Menu Navigator** GoToMenu - Menu Navigator is a WordPress plugin that boosts efficiency by offering rapid access to any registered menu. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow by skipping manual menu scrolling.
+**GoToMenu - Quick Go to Menu Navigator** GoToMenu - Quick Go to Menu Navigator is a WordPress plugin that boosts efficiency by offering rapid access to any registered menu. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow by skipping manual menu scrolling.
 
 ### Key Features:
 - Adds a settings page under "GoToMenu" in the WordPress admin area.
