@@ -100,7 +100,7 @@ function gtmsk_menus()
 function gtmsk_menu_title($menu_title)
 {
     // Check if the string contains an opening HTML tag
-    if (strpos($menu_title, '<') !== false) {
+    if ($menu_title !== null && strpos($menu_title, '<') !== false) {
         // Find the position of the first `<` character
         $tag_start_pos = strpos($menu_title, '<');
         // Extract the text before the first tag
@@ -138,7 +138,11 @@ function gtmsk_menu_icon($menu_icon)
 function gtmsk_menu_url($menu)
 {
     // Check if the string contains an opening HTML tag
-    if (strpos($menu, '.php')) {
+    if ($menu === null) {
+        return '';
+    }
+
+    if (strpos($menu, '.php') !== false) {
         $menu_url = admin_url($menu);
     } else {
         $menu_url = admin_url('admin.php?page=' . $menu);
@@ -149,19 +153,43 @@ function gtmsk_menu_url($menu)
 // Function to get available menus
 function gtmsk_admin_menus()
 {
-    global $menu;
+    global $menu, $submenu;
     $admin_menu_items = array();
 
     foreach ($menu as $item) {
-        if (isset($item[4]) && $item[4] !== 'wp-menu-separator') {
+        if (isset($item[4]) && strpos($item[4], 'wp-menu-separator') === false) {
             $menu_title = gtmsk_menu_title($item[0]);
             $menu_icon = (isset($item[6])) ?  gtmsk_menu_icon($item[6]) : 'dashicons-admin-generic';
 
             $admin_menu_items[] = array(
                 'title' => $menu_title,  // The menu title
                 'url'   => gtmsk_menu_url($item[2]), // The URL to the admin page
-                'icon'   => $menu_icon // The menu icon
+                'icon'   => $menu_icon, // The menu icon
             );
+
+            $menu_slug = $item[2];
+            if (isset($submenu[$menu_slug])) {
+                // Loop through the submenu items
+                //error_log('If submenu ');
+                //error_log(print_r($submenu[$menu_slug], true));
+                foreach ($submenu[$menu_slug] as $sub_item) {
+                    //error_log('sub_item title');
+                    //error_log($sub_item[0]);
+                    if (isset($sub_item[0]) && !empty($sub_item[0])) {
+                        $sub_menu_title = gtmsk_menu_title($sub_item[0]);
+                        $sub_menu_url = gtmsk_menu_url($sub_item[2]);
+
+                        // Add the submenu item as a separate top-level item
+                        if ((isset($sub_menu_title) && !empty($sub_menu_title)) && (isset($sub_menu_url) && !empty($sub_menu_url))) {
+                            $admin_menu_items[] = array(
+                                'title' => $menu_title . ' -  ' . $sub_menu_title,  // Submenu title
+                                'url'   => $sub_menu_url,
+                                'icon'   => $menu_icon
+                            );
+                        }
+                    }
+                }
+            }
         }
     }
 
