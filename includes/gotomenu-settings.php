@@ -29,7 +29,30 @@ function gtmsk_register_options_page() {
         'gtmsk_options_page'
     );
 }
+
+function gotomenu_display_support_message() {
+    $screen = get_current_screen();
+    error_log('screen id');
+    error_log($screen->id);
+    $email = 'santosh.kori@gmail.com';
+    $subject = urlencode('GoToMenu - Quick Support Request');
+    $body = urlencode("Hi,\n\nI need assistance with the GoToMenu plugin. Here are the details:\n\n");
+    $mailto_link = "mailto:$email?subject=$subject&body=$body";
+
+    if ( strpos( $screen->id, 'settings_page_gtmsk' ) !== false ) {
+        ?>
+        <div class="notice notice-info">
+            <h2><?php esc_html_e( 'Need Help or Support?', 'gotomenu' ); ?></h2>
+            <p><?php esc_html_e( 'If you need assistance or have any questions regarding the GoToMenu - Menu Navigator plugin, we are here to help! Do not hesitate to reach out for quick support.', 'gotomenu' ); ?></p>
+            <p><?php esc_html_e( 'For help or support, please send an ', 'gotomenu' ); ?><strong><a href="<?php echo esc_url($mailto_link); ?>" style="text-decoration: none; color: #0073aa;"><?php esc_html_e( 'email us', 'gotomenu' ); ?></a></strong></p>
+            <p><?php esc_html_e( 'Click the link above, and our support team will get back to you as soon as possible. We value your feedback and are happy to assist with any questions you may have!', 'gotomenu' ); ?></p>
+        </div>
+        <?php
+    }
+}
+
 add_action('admin_menu', 'gtmsk_register_options_page');
+
 
 // Display settings page
 function gtmsk_options_page() {
@@ -40,8 +63,8 @@ function gtmsk_options_page() {
         // Verify the nonce before processing the form
         if (isset($_POST['gtmsk_settings_nonce']) && check_admin_referer('gtmsk_settings_action', 'gtmsk_settings_nonce')) {
             // Handle the form submission and save settings securely here.
-            $gtmsk_enable_frontend = isset($_POST['gtmsk_enable_frontend']) ? sanitize_text_field($_POST['gtmsk_enable_frontend']) : 0;
-            $gtmsk_enable_backend = isset($_POST['gtmsk_enable_backend']) ? sanitize_text_field($_POST['gtmsk_enable_backend']) : 0;
+            $gtmsk_enable_frontend = isset($_POST['gtmsk_enable_frontend']) ? sanitize_text_field(wp_unslash($_POST['gtmsk_enable_frontend'])) : 0;
+            $gtmsk_enable_backend = isset($_POST['gtmsk_enable_backend']) ? sanitize_text_field(wp_unslash($_POST['gtmsk_enable_backend'])) : 0;
             // Save the settings
             update_option('gtmsk_enable_frontend', $gtmsk_enable_frontend);
             update_option('gtmsk_enable_backend', $gtmsk_enable_backend);
@@ -81,6 +104,8 @@ function gtmsk_options_page() {
             </div>
             <?php submit_button(); ?>
         </form>
+
+        <?php gotomenu_display_support_message(); ?>
     </div>
     <?php
 }

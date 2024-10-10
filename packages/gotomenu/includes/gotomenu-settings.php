@@ -40,8 +40,8 @@ function gtmsk_options_page() {
         // Verify the nonce before processing the form
         if (isset($_POST['gtmsk_settings_nonce']) && check_admin_referer('gtmsk_settings_action', 'gtmsk_settings_nonce')) {
             // Handle the form submission and save settings securely here.
-            $gtmsk_enable_frontend = isset($_POST['gtmsk_enable_frontend']) ? sanitize_text_field($_POST['gtmsk_enable_frontend']) : 0;
-            $gtmsk_enable_backend = isset($_POST['gtmsk_enable_backend']) ? sanitize_text_field($_POST['gtmsk_enable_backend']) : 0;
+            $gtmsk_enable_frontend = isset($_POST['gtmsk_enable_frontend']) ? sanitize_text_field(wp_unslash($_POST['gtmsk_enable_frontend'])) : 0;
+            $gtmsk_enable_backend = isset($_POST['gtmsk_enable_backend']) ? sanitize_text_field(wp_unslash($_POST['gtmsk_enable_backend'])) : 0;
             // Save the settings
             update_option('gtmsk_enable_frontend', $gtmsk_enable_frontend);
             update_option('gtmsk_enable_backend', $gtmsk_enable_backend);

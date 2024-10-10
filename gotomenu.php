@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: Go To Menu - Quick Go to Menu Navigator
+ * Plugin Name: GoToMenu - Menu Navigator
  * Plugin URI: https://www.santoshkori.com/gotomenu-wordpress/
- * Description: GoToMenu - Quick Go to Menu Navigator is tool that boosts efficiency by offering rapid access to any registered menu. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow.
+ * Description: A quick navigation plugin for WordPress menus. A simple F2 keypress opens a search box, letting users quickly find and open their desired menu. Save time and streamline workflow.
  * Version: 1.0.0
  * Author: Santosh Kori
- * Author URI: http://santoshkori.com
+ * Author URI: https://www.santoshkori.com
  * License: GPLv2 or later
  * Text Domain: gotomenu
  */
