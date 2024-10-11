@@ -32,11 +32,12 @@ function gtmsk_register_options_page() {
 
 function gotomenu_display_support_message() {
     $screen = get_current_screen();
-    error_log('screen id');
-    error_log($screen->id);
     $email = 'santosh.kori@gmail.com';
-    $subject = urlencode('GoToMenu - Quick Support Request');
-    $body = urlencode("Hi,\n\nI need assistance with the GoToMenu plugin. Here are the details:\n\n");
+    $subject = urlencode( __( 'GoToMenu - Quick Support Request', 'gotomenu' ) );
+    $body = urlencode( __( "Hi,\n\nI need assistance with the GoToMenu plugin. Here are the details:\n\n", 'gotomenu' ) );
+    $email = sanitize_email( $email );
+
+    // Create the mailto link
     $mailto_link = "mailto:$email?subject=$subject&body=$body";
 
     if ( strpos( $screen->id, 'settings_page_gtmsk' ) !== false ) {
@@ -44,7 +45,7 @@ function gotomenu_display_support_message() {
         <div class="notice notice-info">
             <h2><?php esc_html_e( 'Need Help or Support?', 'gotomenu' ); ?></h2>
             <p><?php esc_html_e( 'If you need assistance or have any questions regarding the GoToMenu - Menu Navigator plugin, we are here to help! Do not hesitate to reach out for quick support.', 'gotomenu' ); ?></p>
-            <p><?php esc_html_e( 'For help or support, please send an ', 'gotomenu' ); ?><strong><a href="<?php echo esc_url($mailto_link); ?>" style="text-decoration: none; color: #0073aa;"><?php esc_html_e( 'email us', 'gotomenu' ); ?></a></strong></p>
+            <p><?php esc_html_e( 'For help or support, please send an ', 'gotomenu' ); ?><strong><a href="<?php echo esc_url( $mailto_link ); ?>"" style="text-decoration: none; color: #0073aa;"><?php esc_html_e( 'email us', 'gotomenu' ); ?></a></strong></p>
             <p><?php esc_html_e( 'Click the link above, and our support team will get back to you as soon as possible. We value your feedback and are happy to assist with any questions you may have!', 'gotomenu' ); ?></p>
         </div>
         <?php
